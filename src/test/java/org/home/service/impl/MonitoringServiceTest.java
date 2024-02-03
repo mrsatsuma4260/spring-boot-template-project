@@ -4,19 +4,15 @@ import org.home.TestcontainersConfiguration;
 import org.home.properties.ApplicationProperties;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-@SpringBootTest
-@Import(TestcontainersConfiguration.class)
-public class MonitoringServiceTest {
+public class MonitoringServiceTest
+        extends TestcontainersConfiguration {
 
     @Autowired
     private MonitoringService service;

@@ -1,23 +1,34 @@
 package org.home;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.util.TestPropertyValues;
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
-@TestConfiguration(proxyBeanMethods = false)
+@SpringBootTest
+@Testcontainers
+@ContextConfiguration(initializers = {TestcontainersConfiguration.Initializer.class})
 public class TestcontainersConfiguration {
-    @Bean
-    @ServiceConnection
-    PostgreSQLContainer<?> postgresContainer() {
-        return new PostgreSQLContainer<>("postgres:15-alpine");
-    }
 
-    public static void main(String[] args) {
-        SpringApplication
-                .from(TestcontainersConfiguration::main)
-                .with(TestcontainersConfiguration.class)
-                .run(args);
+    private static final String DATABASE_NAME = "postgres";
+    @Container
+    public static PostgreSQLContainer<?> container =
+            new PostgreSQLContainer<>("postgres:15-alpine")
+                    .withReuse(true)
+                    .withDatabaseName(DATABASE_NAME);
+
+    static class Initializer
+            implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+        public void initialize(final ConfigurableApplicationContext context) {
+            TestPropertyValues.of(
+                            "database.datasource.username=" + container.getUsername(),
+                            "database.datasource.password=" + container.getPassword(),
+                            "database.datasource.jdbcUrl=" + container.getJdbcUrl())
+                    .applyTo(context.getEnvironment());
+        }
     }
 }
