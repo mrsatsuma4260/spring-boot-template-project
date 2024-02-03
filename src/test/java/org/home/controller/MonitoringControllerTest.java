@@ -1,6 +1,5 @@
-package org.home;
+package org.home.controller;
 
-import org.home.controller.MonitoringController;
 import org.home.service.IMonitoringService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
