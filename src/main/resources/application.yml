@@ -1,3 +1,9 @@
 
 application:
   version: 1
+
+database:
+  datasource:
+    jdbcUrl: jdbc:postgresql://localhost:5432/postgres
+    username: foo
+    password: password

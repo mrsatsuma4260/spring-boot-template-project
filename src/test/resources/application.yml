@@ -1,6 +1,17 @@
+spring:
+  sql:
+    init:
+      mode: always
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
 
 application:
   version: 1.0.0
 
 database:
+  datasource:
+    jdbcUrl: jdbc:postgresql://localhost:5432/postgres
+    username: foo
+    password: password
   url: localhost
