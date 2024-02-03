@@ -1,20 +1,20 @@
 package org.home.controller;
 
-import org.home.properties.ApplicationProperties;
+import org.home.service.IMonitoringService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MonitoringController {
 
-    private final ApplicationProperties properties;
+    private final IMonitoringService service;
 
-    public MonitoringController(final ApplicationProperties properties) {
-        this.properties = properties;
+    public MonitoringController(final IMonitoringService service) {
+        this.service = service;
     }
 
     @GetMapping("/version")
     String version() {
-        return properties.getVersion();
+        return service.getVersion();
     }
 }
