@@ -1,8 +1,10 @@
 package org.home;
 
 import org.home.controller.MonitoringController;
+import org.home.properties.ApplicationProperties;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -12,6 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(MonitoringController.class)
+@EnableConfigurationProperties(ApplicationProperties.class)
 public class MonitoringControllerTest {
 
     @Autowired
