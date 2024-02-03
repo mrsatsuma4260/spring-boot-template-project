@@ -14,7 +14,7 @@ public class MonitoringController {
     }
 
     @GetMapping("/version")
-    String version() {
+    public String version() {
         return service.getVersion();
     }
 }
